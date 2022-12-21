@@ -7,31 +7,57 @@ const hoursDisplay = document.getElementById('hours');
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
 
-// Lasso di tempo fra la data corrente e quella attesa
+// Data attesa
 
-const countDownDate = new Date("Dec 25, 2022 00:00:00");
-
-
-// Update countdown
-
-setInterval(() => {
-
-    // Data odierna e ora attuale
-
-    const now = new Date().getTime();
-
-
-    //Distanza tra ora e data attesa 
-
-    const distance = countDownDate - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const countDownDate = new Date("Dec 25, 2022");
+const msConutDownDate = countDownDate.getTime();
 
 
 
-})
+// Unità di misura 
+
+const msSeconds = 1000;
+const msMinutes = msSeconds * 60;
+const msHours = msMinutes * 60;
+const msDays = msHours * 24;
+
+
+// Funzione per il conto alla rovescia 
+
+const countDown = () => {
+
+// Data odierna e ora attuale
+
+const now = new Date();
+const msNow = now.getTime();
+
+
+// Lasso di tempo fra la data corrente e quella attesa 
+
+const msDistance = msConutDownDate - msNow;
+
+console.log(msDistance);
+
+
+// Calcoli 
+
+const daysTo = Math.floor(msDistance / msDays);
+const hoursTo = Math.floor((msDistance % msDays) / msHours);
+const minutesTo = Math.floor((msDistance % msHours) / msMinutes);
+const secondsTo = Math.floor((msDistance % msMinutes) / msSeconds);
+
+
+
+
+// Stampo in pagina 
+
+daysDisplay.innerText = daysTo;
+hoursDisplay.innerText = hoursTo;
+minutesDisplay.innerText = minutesTo;
+secondsDisplay.innerText = secondsTo;
+
+
+}
+
+
+setInterval(countDown, msSeconds);
